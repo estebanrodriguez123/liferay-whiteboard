@@ -271,6 +271,17 @@ YUI.add('multiuser-whiteboard', function (Y, NAME) {
              */
             baseImagePath: {
                 value: ''
+            },
+            
+            /**
+             * Username and user image to be displayed to the other users in tooltips while editing the whiteboard
+             * 
+             */
+            userName: {
+                value: ''
+            },
+            userImagePath: {
+                value: ''
             }
             
         }

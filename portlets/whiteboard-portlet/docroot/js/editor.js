@@ -33,6 +33,8 @@ YUI.add('whiteboard', function (Y, NAME) {
 	
     var EditorManager = Y.Base.create('whiteboard', Y.Base, [Y.TextEditor], {
         
+        confirmMessage: null,
+        
         initializer: function () {
             this.bindUI();
         },
@@ -102,13 +104,20 @@ YUI.add('whiteboard', function (Y, NAME) {
             /* delete button */
             menu.one(SELECTOR_DELETE).on('click', function (e) {
                 if (instance.get(SELECTED_SHAPE)) {
-                    instance.get(SELECTED_SHAPE).remove();
+                    var selectedShape = instance.get(SELECTED_SHAPE);
+                    instance.showConfirmMessage(Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteshapepopup.title'),
+                                            Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteshapepopup.message'), function() {
+                        selectedShape.remove();
+                    });
                 }
             });
             
             /* clean button */
             menu.one(SELECTOR_CLEAN).on('click', function (e) {
-                instance.deleteAllShapes();
+                instance.showConfirmMessage(Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteallpopup.title'),
+                                            Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteallpopup.message'), function() {
+                    instance.deleteAllShapes();
+                });
             });
             
             /* after free draw finished on mouse up */
@@ -131,6 +140,45 @@ YUI.add('whiteboard', function (Y, NAME) {
             this.on('text-editor:textedited', function(e) {
                 instance.get(CANVAS).renderAll();
             });
+        },
+        
+        /**
+         * Displays confirmation message
+         * 
+         * @param message Message to be displayed
+         * @param confirmationCallback Function exec when user clicks ok
+         * 
+         */ 
+        showConfirmMessage: function(title, message, confirmationCallback) {
+            var instance = this;
+            if (!this.confirmMessage) {
+                var buttonsTpl = '<p>' + 
+                    '<button class="btn btn-primary" type="button">{confirm}</button>' + 
+                    '<button class="btn cancel" type="button">{cancel}</button>' +
+                '</p>';
+                buttonsTpl = Y.Lang.sub(buttonsTpl, {confirm: Liferay.Language.get('rivetlogic.whiteboard.confirm.label'), 
+                                                     cancel: Liferay.Language.get('rivetlogic.whiteboard.cancel.label') });
+                this.confirmMessage = new Y.Modal({
+                    bodyContent: '',
+                    centered: true,
+                    modal: true,
+                    headerContent: '',
+                    visible: false,
+                    zIndex: Liferay.zIndex.TOOLTIP
+                }).render();
+                this.confirmMessage.get('boundingBox').one('.modal-body').append('<div class="message"></div>');
+                this.confirmMessage.get('boundingBox').one('.modal-body').append(buttonsTpl);
+            }
+            this.confirmMessage.set('headerContent', title);
+            this.confirmMessage.get('boundingBox').one('.message').set('text', message);
+            this.confirmMessage.get('boundingBox').one('.btn-primary').once('click', function() {
+                instance.confirmMessage.hide();
+                confirmationCallback();
+            });
+            this.confirmMessage.get('boundingBox').one('.cancel').once('click', function() {
+                instance.confirmMessage.hide();
+            });
+            this.confirmMessage.show();
         },
         
         /**
