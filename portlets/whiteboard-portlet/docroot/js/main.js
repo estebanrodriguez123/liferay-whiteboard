@@ -46,7 +46,9 @@ AUI().use('multiuser-whiteboard', function(A) {
             useAtmosphere: true,
             onlineUsersTemplate: A.one(SELECTOR_ONLINE_USERS_TEMPLATE).get('innerHTML'),
             usersTooltipsTemplate: A.one(SELECTOR_USER_TOOLTIPS_TEMPLATE).get('innerHTML'),
-            baseImagePath: Liferay.ThemeDisplay.getPathImage()
+            baseImagePath: Liferay.ThemeDisplay.getPathImage(),
+            userName: (Liferay.ThemeDisplay.getUserName() != '') ? Liferay.ThemeDisplay.getUserName() : 'Guest', /* for user tooltip */
+            userImagePath: A.one('.whiteboard-portlet .profile-image-path').get('value') /* for user tooltip */
         });     
     });
 });
