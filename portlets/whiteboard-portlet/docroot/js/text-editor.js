@@ -40,6 +40,7 @@ YUI.add('text-editor', function (Y, NAME) {
                 render: true,
                 plugins: [Y.Plugin.Drag]
             });
+            panel.get('srcNode').setStyle('display', 'none');
             this.set(TEXT_EDITOR, panel);
             this.bindTextEditor();
         },
@@ -48,12 +49,14 @@ YUI.add('text-editor', function (Y, NAME) {
             var instance = this;
             this.get(TEXT_EDITOR_NODE).one(SELECTOR_CANCEL_BUTTON).on('click', function() {
                 instance.get(TEXT_EDITOR).hide();
+                instance.get(TEXT_EDITOR).get('srcNode').setStyle('display', 'none');
             });
             this.get(TEXT_EDITOR_NODE).one(SELECTOR_EDIT_BUTTON).on('click', function() {
                 instance.get(CURRENT_TEXT_COMPONENT).setText(instance.get(TEXT_EDITOR_NODE).one(SELECTOR_TEXT).get('value'));
                 instance.get(CURRENT_TEXT_COMPONENT).fire('modified');
                 instance.fire(EVT_TEXT_EDITED);
                 instance.get(TEXT_EDITOR).hide();
+                instance.get(TEXT_EDITOR).get('srcNode').setStyle('display', 'none');
             });
         },
         
@@ -64,6 +67,7 @@ YUI.add('text-editor', function (Y, NAME) {
         editText: function(textComponent) {
             this.set(CURRENT_TEXT_COMPONENT, textComponent);
             this.get(TEXT_EDITOR).show();
+            this.get(TEXT_EDITOR).get('srcNode').setStyle('display', 'block');
             this.get(TEXT_EDITOR_NODE).one(SELECTOR_TEXT).set('value', textComponent.text);
         }
     }, {
