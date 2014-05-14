@@ -72,7 +72,7 @@ YUI.add('multiuser-whiteboard', function (Y, NAME) {
                 url: baseUrl + '/delegate/collaboration-whiteboard/?baseImagePath=' +
                     encodeURIComponent(instance.get('baseImagePath')),
                 trackMessageLength: true,
-                transport: 'websocket',
+                transport: 'websocket'
                 //logLevel: 'debug',
             };
 
@@ -168,6 +168,7 @@ YUI.add('multiuser-whiteboard', function (Y, NAME) {
                 var cachedShape = this.getShapeFromCache(command.cacheId);
                 
                 if (command.action == Y.EditorManager.CONSTANTS.MODIFY && cachedShape) {
+                    this.get('canvas').discardActiveGroup();
                     this.modifyShape(command);
                 }
                 if (command.action == Y.EditorManager.CONSTANTS.DELETE && cachedShape) {
