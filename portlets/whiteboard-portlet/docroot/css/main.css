@@ -1,5 +1,12 @@
 @import url(main-responsive.css);
 
+.whiteboard-btn-group {
+    padding: 10px 0;
+    button {
+        margin-right: 10px;
+    }
+}
+
 .whiteboard-portlet,
 .whiteboard-portlet label {
     font-size: 12px;

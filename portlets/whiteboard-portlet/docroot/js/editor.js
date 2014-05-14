@@ -152,7 +152,7 @@ YUI.add('whiteboard', function (Y, NAME) {
         showConfirmMessage: function(title, message, confirmationCallback) {
             var instance = this;
             if (!this.confirmMessage) {
-                var buttonsTpl = '<p>' + 
+                var buttonsTpl = '<p class="whiteboard-btn-group">' + 
                     '<button class="btn btn-primary" type="button">{confirm}</button>' + 
                     '<button class="btn cancel" type="button">{cancel}</button>' +
                 '</p>';
@@ -164,6 +164,7 @@ YUI.add('whiteboard', function (Y, NAME) {
                     modal: true,
                     headerContent: '',
                     visible: false,
+                    width: 330,
                     zIndex: Liferay.zIndex.TOOLTIP
                 }).render();
                 this.confirmMessage.get('boundingBox').one('.modal-body').append('<div class="message"></div>');
