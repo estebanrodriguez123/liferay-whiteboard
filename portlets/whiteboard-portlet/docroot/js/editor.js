@@ -110,6 +110,15 @@ YUI.add('whiteboard', function (Y, NAME) {
                         selectedShape.remove();
                     });
                 }
+                instance.retrieveGroupedShapes(function(shapes) {
+                    instance.showConfirmMessage(Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteagrouppopup.title'),
+                                            Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteagrouppopup.message'), function() {
+                        instance.get(CANVAS).getActiveGroup().forEachObject(function(shape){
+                            instance.get(CANVAS).remove(shape);
+                        });
+                        instance.get(CANVAS).discardActiveGroup().renderAll();
+                    });
+                });
             });
             
             /* clean button */
