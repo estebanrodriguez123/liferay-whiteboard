@@ -133,6 +133,22 @@ YUI.add('whiteboard', function (Y, NAME) {
                 }, e.path);
             });
             
+            this.get(CANVAS).on('object:modified', function(e) {
+                instance.retrieveGroupedShapes(function(shapes) {
+                    for (var i = 0; i < shapes.length; i++) {
+                        shapes[i].fire('modified');
+                    }
+                });
+            });
+            
+            this.get(CANVAS).on('object:moving', function(e) {
+                instance.retrieveGroupedShapes(function(shapes) {
+                    for (var i = 0; i < shapes.length; i++) {
+                        shapes[i].fire('modified');
+                    }
+                });
+            });
+            
             this.get(CANVAS).on('selection:cleared', function(e) {
                 instance.set(SELECTED_SHAPE, null);
             });
@@ -140,6 +156,17 @@ YUI.add('whiteboard', function (Y, NAME) {
             this.on('text-editor:textedited', function(e) {
                 instance.get(CANVAS).renderAll();
             });
+        },
+        
+        /**
+         * 
+         * Verify multiple shapes selected/grouped and retrieve them
+         * 
+         */ 
+        retrieveGroupedShapes: function (cb) {
+             if (this.get(CANVAS).getActiveGroup()) {
+                cb(this.get(CANVAS).getActiveGroup().getObjects());
+             }
         },
         
         /**
@@ -357,6 +384,8 @@ YUI.add('whiteboard', function (Y, NAME) {
                     state[propertyName] = shape[propertyName];
                 }
             }
+            state.left = shape.group ? (shape.group.left + state.left) : state.left;
+            state.top = shape.group ? (shape.group.top + state.top) : state.top;
             return state;
         },
         
