@@ -102,20 +102,28 @@
     height: 20px;
 }
 
-.whiteboard-portlet .editor menu button[data-shape="rectangle"] span {
-    background: url(../images/rectangle.gif) center no-repeat;
+.whiteboard-portlet .editor  menu button i {
+    background: none !important;
 }
 
-.whiteboard-portlet .editor menu button[data-shape="line"] span {
-    background: url(../images/line.gif) center no-repeat;
+.whiteboard-portlet .editor menu button[data-shape="rectangle"] span,
+.whiteboard-portlet .editor menu button[data-shape="rectangle"] span:hover {
+    background: url(../images/rectangle.gif) center no-repeat !important;
 }
 
-.whiteboard-portlet .editor  menu button[data-shape="circle"] span {
-    background: url(../images/circle.gif) center no-repeat;
+.whiteboard-portlet .editor menu button[data-shape="line"] span,
+.whiteboard-portlet .editor menu button[data-shape="line"] span:hover {
+    background: url(../images/line.gif) center no-repeat !important;
 }
 
-.whiteboard-portlet .editor menu button[data-shape="text"] span {
-    background: url(../images/text.gif) center no-repeat;
+.whiteboard-portlet .editor  menu button[data-shape="circle"] span,
+.whiteboard-portlet .editor  menu button[data-shape="circle"] span:hover {
+    background: url(../images/circle.gif) center no-repeat !important;
+}
+
+.whiteboard-portlet .editor menu button[data-shape="text"] span,
+.whiteboard-portlet .editor menu button[data-shape="text"] span:hover {
+    background: url(../images/text.gif) center no-repeat !important;
 }
 
 /* color picker */
