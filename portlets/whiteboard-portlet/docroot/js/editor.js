@@ -126,6 +126,7 @@ YUI.add('whiteboard', function (Y, NAME) {
                 instance.showConfirmMessage(Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteallpopup.title'),
                                             Liferay.Language.get('rivetlogic.whiteboard.confirm.deleteallpopup.message'), function() {
                     instance.deleteAllShapes();
+                    instance.get(CANVAS).discardActiveGroup().renderAll();
                 });
             });
             

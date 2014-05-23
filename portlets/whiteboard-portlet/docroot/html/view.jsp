@@ -95,7 +95,7 @@
 
     </menu>
     <canvas id="editor-canvas" height="500"></canvas>
-    <div class="text-editor">
+    <div class="text-editor hidden">
         <textarea class="text"></textarea>
         <button class="btn btn-primary edit"><liferay-ui:message key="rivetlogic.whiteboard.canvas.edit"/></button>
         <button class="btn cancel"><liferay-ui:message key="rivetlogic.whiteboard.canvas.cancel"/></button>
