@@ -27,6 +27,7 @@ YUI.add('whiteboard', function (Y, NAME) {
 	var COUNT = 'count';
 	var SELECTOR_BUTTON = '.btn';
 	var SELECTOR_BUTTON_ADD = '.btn.add';
+    var SELECTOR_DOWNLOAD = '.download';
 	var SELECTOR_DELETE = '.delete';
 	var SELECTOR_FREE = '.free';
 	var SELECTOR_CLEAN = '.clean';
@@ -99,6 +100,13 @@ YUI.add('whiteboard', function (Y, NAME) {
                 }
                 instance.get(CANVAS).freeDrawingBrush.color = EditorManager.CONSTANTS.PATH_STATE.stroke;
                 instance.get(CANVAS).isDrawingMode = this.hasClass(CLASS_SELECTED);
+            });
+            
+            menu.one(SELECTOR_DOWNLOAD).on('click', function (e) {
+                var anchor = Y.Node.create('<a/>');
+                anchor.setAttribute('target', '_blank');
+                anchor.setAttribute('href', instance.get(CANVAS).toDataURL({format: 'png', multiplier: 4}))
+                anchor.simulate('click');
             });
             
             /* delete button */
@@ -537,5 +545,5 @@ YUI.add('whiteboard', function (Y, NAME) {
     Y.EditorManager = EditorManager;
 
 }, '@VERSION@', {
-    "requires": ["yui-base", "base-build", "text-editor", "color-picker"]
+    "requires": ["yui-base", "base-build", "text-editor", "color-picker", "node-event-simulate"]
 });

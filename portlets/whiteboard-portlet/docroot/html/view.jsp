@@ -46,6 +46,7 @@
             <button class="btn free" title='<liferay-ui:message key="rivetlogic.whiteboard.shapes.free.title"/>'><i class="icon-pencil" ></i></button>
             <button class="btn add" data-shape="text" title='<liferay-ui:message key="rivetlogic.whiteboard.shapes.text.title"/>'><span></span></button>
             <button class="btn delete" title='<liferay-ui:message key="rivetlogic.whiteboard.shapes.remove.title"/>'><i class="icon-remove"></i></button>
+            <button class="btn download" title='<liferay-ui:message key="rivetlogic.whiteboard.download.canvas.title"/>'><i class="icon-download-alt"></i></button>
             <button class="btn clean" title='<liferay-ui:message key="rivetlogic.whiteboard.clean.canvas.title"/>'><i class="icon-trash"></i></button>
             <div class="color-picker stroke yui3-skin-sam"><label><liferay-ui:message key="rivetlogic.whiteboard.stroke"/></label>
                 <span class="sample" style="background-color: #000000;"></span>
