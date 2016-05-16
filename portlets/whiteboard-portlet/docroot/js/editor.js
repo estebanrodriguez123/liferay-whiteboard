@@ -103,10 +103,7 @@ YUI.add('whiteboard', function (Y, NAME) {
             });
             
             menu.one(SELECTOR_DOWNLOAD).on('click', function (e) {
-                var anchor = Y.Node.create('<a/>');
-                anchor.setAttribute('target', '_blank');
-                anchor.setAttribute('href', instance.get(CANVAS).toDataURL({format: 'png', multiplier: 4}))
-                anchor.simulate('click');
+                Y.EditorDownload.show(instance.get(CANVAS));
             });
             
             /* delete button */
@@ -545,5 +542,5 @@ YUI.add('whiteboard', function (Y, NAME) {
     Y.EditorManager = EditorManager;
 
 }, '@VERSION@', {
-    "requires": ["yui-base", "base-build", "text-editor", "color-picker", "node-event-simulate"]
+    "requires": ["download-util", "yui-base", "base-build", "text-editor", "color-picker", "node-event-simulate"]
 });
