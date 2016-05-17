@@ -27,11 +27,13 @@ YUI.add('whiteboard', function (Y, NAME) {
 	var COUNT = 'count';
 	var SELECTOR_BUTTON = '.btn';
 	var SELECTOR_BUTTON_ADD = '.btn.add';
+    var SELECTOR_OPTIONS = '.objects-options';
     var SELECTOR_DOWNLOAD = '.download';
 	var SELECTOR_DELETE = '.delete';
 	var SELECTOR_FREE = '.free';
 	var SELECTOR_CLEAN = '.clean';
-	
+	var SELECTOR_DROPDOWN = '.dropdown-menu';
+    
     var EditorManager = Y.Base.create('whiteboard', Y.Base, [Y.TextEditor], {
         
         confirmMessage: null,
@@ -104,6 +106,37 @@ YUI.add('whiteboard', function (Y, NAME) {
             
             menu.one(SELECTOR_DOWNLOAD).on('click', function (e) {
                 Y.EditorDownload.show(instance.get(CANVAS));
+            });
+            
+            menu.one(SELECTOR_OPTIONS).on('click', function (e) {
+                this.toggleClass('selected');
+                this.one(SELECTOR_DROPDOWN).toggleClass('show');
+            });
+            
+            menu.one(SELECTOR_OPTIONS).delegate('click', function() {
+                var action = this.getAttribute('data-action');
+                switch(action) {
+                    case 'send-to-back': 
+                        if (instance.get(SELECTED_SHAPE)) {
+                            instance.get(SELECTED_SHAPE).sendToBack();
+                        }
+                        break;
+                    case 'bring-to-front': 
+                        if (instance.get(SELECTED_SHAPE)) {
+                            instance.get(SELECTED_SHAPE).bringToFront();
+                        }
+                        break;
+                    default: break;
+                }
+            }, '[data-action]');
+            
+            Y.one(document).on('click', function(e) {
+                if (e.target.ancestor(SELECTOR_OPTIONS) ||
+                    e.target === menu.one(SELECTOR_OPTIONS)) {
+                    return;
+                }
+                menu.one(SELECTOR_OPTIONS).removeClass('selected');
+                menu.one(SELECTOR_OPTIONS).one(SELECTOR_DROPDOWN).removeClass('show');
             });
             
             /* delete button */
