@@ -60,7 +60,7 @@ YUI.add('download-util', function (Y, NAME) {
                     click: function() {
                         var anchor = Y.Node.create('<a/>');
                         anchor.setAttribute('target', '_blank');
-                        anchor.setAttribute('download', '');
+                        anchor.setAttribute('download', 'whiteboard-image.png');
                         anchor.setAttribute('href', imageData)
                         anchor.simulate('click');
                     }
